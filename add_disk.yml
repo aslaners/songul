@@ -1,0 +1,18 @@
+- name: Add disks to virtual machine using UUID
+  vmware_guest_disk:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    datacenter: "{{ datacenter_name }}"
+    validate_certs: no
+    uuid: 421e4592-c069-924d-ce20-7e7533fab926
+    disk:
+      - size_gb: "{{ size }}"
+        type: thin
+        state: present
+        autoselect_datastore: True
+        scsi_controller: 2
+        scsi_type: 'buslogic'
+        unit_number: 12
+  delegate_to: localhost
+  register: disk_facts
